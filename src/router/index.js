@@ -1,18 +1,34 @@
 import { createRouter, createWebHistory } from 'vue-router'
+const Home = () => import("../views/HomeView.vue");
+const About = () => import("../views/AboutView.vue");
+const Movies=()=>import("../views/MoviesView.vue")
+const NotFound = () => import("../views/NotFound.vue")
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
       name: 'home',
-      component: ()=>import('../views/HomeView.vue')
+      component: Home,
     },
     {
       path: '/about',
       name: 'about',  
-      component: () => import('../views/AboutView.vue')
+      component:About
+    },
+    {
+      path: '/movies',
+      name: 'movies',
+      component:Movies
+
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "NotFound",
+      component:NotFound
     }
+   
   ]
 })
 
