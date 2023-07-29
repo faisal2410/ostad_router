@@ -1,7 +1,7 @@
     <script setup>
 
     import { ref,reactive, onMounted } from 'vue';
-    import { useRoute } from 'vue-router';
+    import { useRouter } from 'vue-router';
 
    const props= defineProps({
             id: {
@@ -12,11 +12,15 @@
 
     let queryMovie = reactive({});
     let isLoading = ref(true);
-    let route = useRoute();
+    let router = useRouter();
 
     onMounted(async () => {
             try {
-              const result = await fetch(` http://localhost:8000/movies/${parseInt(props.id)}`)
+                    const result = await fetch(` http://localhost:8000/movies/${parseInt(props.id)}`)
+                    if (result.status === 404) {
+                        router.push({name:'NotFound'})
+                
+              }
             const response = await result.json();
                     queryMovie = response;
             console.log(response)
